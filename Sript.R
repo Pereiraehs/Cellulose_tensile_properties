@@ -14,3 +14,5 @@ df.sscurve <- df[df$new > 0,]
 
 plot(df.sscurve$new, df.sscurve$V7)
 
+#Referencia https://stackoverflow.com/questions/46108100/how-to-find-the-linear-part-of-a-curve 
+
