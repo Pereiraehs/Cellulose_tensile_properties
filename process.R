@@ -33,6 +33,10 @@ a <- data.frame(x = df.sscurve$new,
 
 #[1] Reference akond (https://stackoverflow.com/questions/46108100/how-to-find-the-linear-part-of-a-curve)
   
+#Young's module identification 
+
+coef(a)
+  
   
   
   
