@@ -2,7 +2,7 @@
 #Make for to know what king of file encoding your equipment software will provide
 read.table("Input/BC50GLU_01.txt", skip = 56, header = FALSE, sep = "", fileEncoding = "UTF-16")
 
-df <- read.table("Input/BC50GLU_01.txt", skip = 56, header = FALSE, sep = "", fileEncoding = "UTF-16")
+df <- read.table("Input/BC50TA_01.txt", skip = 56, header = FALSE, sep = "", fileEncoding = "UTF-16")
 
 #Identify and name(optional) the signals you want to work with
 df.length <- df$V6
@@ -35,13 +35,9 @@ a <- data.frame(x = df.sscurve$new,
   
 #Young's module identification 
 
-coef(a)
-  
-  
-  
-  
-  
-  
+coef(lm(y~x,RES))
+
+# X is related to the Young's modulus
   
   
   
