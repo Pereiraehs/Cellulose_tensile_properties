@@ -38,6 +38,7 @@ a <- data.frame(x = df.sscurve$new,
 coef(lm(y~x,RES))
 
 # X is related to the Young's modulus
+#Alteracao teste
   
   
   
