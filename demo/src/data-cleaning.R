@@ -1,4 +1,4 @@
-# get a list of files in the directory
+# get a list of files in the raw-data directory
 file_list <- list.files("~/R/Biologic_tensile_properties/demo/raw-data/")
 
 # create an empty list to store the data frames
@@ -27,5 +27,5 @@ df_list_calculated <- lapply(df_list_selected, function(df) {
 
 # write each data frame to a separate .txt file
 for(i in seq_along(df_list_calculated)) {
-  write.table(df_list_calculated[[i]], file = paste0("~/R/Biologic_tensile_properties/demo/input/", gsub(".dat", "", file_list[i]), "_cleaned.txt"), row.names= FALSE, sep="/t")
+  write.table(df_list_calculated[[i]], file = paste0("~/R/Biologic_tensile_properties/demo/input/", gsub(".dat", "", file_list[i]), "_cleaned.txt"), row.names= FALSE, sep=",")
 }

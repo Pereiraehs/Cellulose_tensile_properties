@@ -1,19 +1,39 @@
-#Read TXT/CSV file in input directory
-#Make for to know what king of file encoding your equipment software will provide
-df <- read.table("input/BC50TAw_01.txt", skip = 56, header = FALSE, sep = "", fileEncoding = "UTF-16")
+#Read TXT/CSV file in input directory with stress and strain sgnals
+cfile_list <- list.files("~/R/Biologic_tensile_properties/demo/input/")
 
-#Identify and name(optional) the signals you want to work with
-df.length <- df$V6
-df.stress <- df$V7
+# create an empty list to store the data frames
+cdf_list <- list()
 
-#Normalize strain signal based on length and add to the data frame
-df$new <- ((df.length - df.length[1])/df.length[1])*100
+# loop over the files and read them into separate data frames
+for(i in seq_along(cfile_list)){
+  cdf_list[[i]] <- read.table(file = paste0("~/R/Biologic_tensile_properties/demo/input/", cfile_list[i]),
+                             header = TRUE, sep=",")
+}
 
-#Build a new data frame with subset values of strain > 0.
-df.sscurve <- df[df$new > 0,]
+library(ggplot2)
+library(cowplot)
 
-#Test and see if your Strain x Stress curve is correct
-plot(df.sscurve$new, df.sscurve$V7) 
+# Create an empty list to store the plots
+plots_list <- list()
+
+# Loop over the datasets
+for (i in seq_along(cdf_list)) {
+  # Filter out negative values
+  cdf_list[[i]] <- cdf_list[[i]][cdf_list[[i]]$"strain" >= 0,]
+  
+  # Create a plot using ggplot2
+  p <- ggplot(cdf_list[[i]], aes(x = strain, y = V7)) + 
+    geom_point() + 
+    geom_smooth(method = "lm", se = FALSE, color = "blue") + 
+    scale_x_continuous(limits = c(min(cdf_list[[i]]$"strain"), max(cdf_list[[i]]$"strain"))) + 
+    scale_y_continuous(limits = c(0, max(cdf_list[[i]]$"V7")))
+  
+  # Store the plot in the list
+  plots_list[[i]] <- p
+}
+
+# Plot the list of plots using cowplot
+plot_grid(plotlist = plots_list, ncol = 2)
 
 #Finding the curve linear portion
 a <- data.frame(x = df.sscurve$new,
