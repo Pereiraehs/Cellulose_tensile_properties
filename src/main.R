@@ -1,6 +1,6 @@
 #Read TXT/CSV file in input directory
 #Make for to know what king of file encoding your equipment software will provide
-df <- read.table("Input/BC50TAw_01.txt", skip = 56, header = FALSE, sep = "", fileEncoding = "UTF-16")
+df <- read.table("input/BC50TAw_01.txt", skip = 56, header = FALSE, sep = "", fileEncoding = "UTF-16")
 
 #Identify and name(optional) the signals you want to work with
 df.length <- df$V6
